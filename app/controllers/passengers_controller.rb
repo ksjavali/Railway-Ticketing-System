@@ -1,4 +1,5 @@
 class PassengersController < ApplicationController
+  skip_before_action :authorized, only: [:new, :create]
   before_action :set_passenger, only: %i[ show edit update destroy ]
 
   # GET /passengers or /passengers.json
