@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_25_061328) do
+ActiveRecord::Schema.define(version: 2023_09_28_190721) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
     t.string "credit_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.string "string"
   end
 
   create_table "passengers", force: :cascade do |t|
@@ -32,8 +34,8 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
     t.string "credit_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "train_id", null: false
-    t.index ["train_id"], name: "index_passengers_on_train_id"
+    t.string "password_digest"
+    t.string "string"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -72,7 +74,6 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "passengers", "trains"
   add_foreign_key "reviews", "passengers"
   add_foreign_key "reviews", "trains"
   add_foreign_key "tickets", "passengers"
