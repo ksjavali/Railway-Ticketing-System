@@ -3,7 +3,15 @@ class TrainsController < ApplicationController
 
   # GET /trains or /trains.json
   def index
-    @trains = Train.all
+    if params[:search_departure_station].present? && params[:search_termination_station].present?
+      @trains = Train.where('departure_station = ? AND termination_station = ?', params[:search_departure_station], params[:search_termination_station])
+    elsif params[:search_departure_station].present?
+      @trains = Train.where(departure_station: params[:search_departure_station])
+    elsif params[:search_termination_station].present?
+      @trains = Train.where(termination_station: params[:search_termination_station])  
+    else
+      @trains = Train.all
+    end
   end
 
   # GET /trains/1 or /trains/1.json

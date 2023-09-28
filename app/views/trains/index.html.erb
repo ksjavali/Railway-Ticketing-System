@@ -2,6 +2,15 @@
 
 <h1>Trains</h1>
 
+
+<%= form_tag trains_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search_departure_station, params[:search_departure_station], placeholder: "Enter Departure Station" %>
+    <%= text_field_tag :search_termination_station, params[:search_termination_station], placeholder: "Enter Termination Station" %>
+    <%= submit_tag "search", :departure_station => nil, :termination_station => nil %>
+  </p>
+<% end %>
+
 <table>
   <thead>
     <tr>
