@@ -1,16 +1,15 @@
 <p id="notice"><%= notice %></p>
 
-<% if current_user %>
-  <h2>Logged in as <%= current_user.name %></h2>
+<% if current_passenger %>
+  <h2>Logged in as <%= current_passenger.name %></h2>
   <a><%= link_to "Log Out", logout_path %></a><br>
   <nav>
     <ul>
-      <li><%= link_to "My Profile", user_path(current_user.id) %> </li>
-      <li><%= link_to "All Books", books_path %> </li>
+      <li><%= link_to "My Profile", passenger_path(current_passenger.id) %> </li>
+     
       <li><%= link_to "All Reviews", reviews_path %> </li>
-      <li><%= link_to "My Reviews", reviews_path(:user_id => current_user.id) %> </li>
-      <li><%= link_to "My Shopping History", transactions_path(current_user.id) %> </li>
-      <li><%= link_to 'View My Cart', order_items_path %></li>
+      <li><%= link_to "My Reviews", reviews_path(:passenger_id => current_passenger.id) %> </li>
+     
     </ul>
   </nav>
 
@@ -19,9 +18,9 @@
   <a><%= link_to "Log Out", logout_path %></a><br>
   <nav>
     <ul>
-      <li><%= link_to "My Profile", admin_path(admin_user.id) %></li>
+      <li><%= link_to "My Profile", admin_path(admin_passenger.id) %></li>
       <li><%= link_to "All Books", books_path %></li>
-      <li><%= link_to "All Users", users_path %></li>
+      <li><%= link_to "All passengers", passengers_path %></li>
       <li><%= link_to "All Reviews", reviews_path %></li>
       <li><%= link_to "All Transactions", transactions_path %></li>
       <li><%= link_to "Log Out", admin_logout_path %></li>
