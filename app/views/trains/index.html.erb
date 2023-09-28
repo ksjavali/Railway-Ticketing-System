@@ -6,7 +6,6 @@
   <thead>
     <tr>
       <th>Train number</th>
-      <th>String</th>
       <th>Departure station</th>
       <th>Termination station</th>
       <th>Departure date</th>
@@ -24,7 +23,6 @@
     <% @trains.each do |train| %>
       <tr>
         <td><%= train.train_number %></td>
-        <td><%= train.string %></td>
         <td><%= train.departure_station %></td>
         <td><%= train.termination_station %></td>
         <td><%= train.departure_date %></td>

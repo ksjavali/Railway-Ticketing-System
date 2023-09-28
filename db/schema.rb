@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_25_061328) do
+ActiveRecord::Schema.define(version: 2023_09_28_034715) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -58,8 +58,7 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
   end
 
   create_table "trains", force: :cascade do |t|
-    t.string "train_number"
-    t.string "string"
+    t.integer "train_number"
     t.string "departure_station"
     t.string "termination_station"
     t.date "departure_date"
