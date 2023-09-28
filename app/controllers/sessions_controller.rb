@@ -1,7 +1,7 @@
 require 'bcrypt'
 class SessionsController < ApplicationController
   skip_before_action :authorized, only: [:new, :create]
-  def new
+  def new   
   end
   def create
       user = User.find_by_username(params[:username])
