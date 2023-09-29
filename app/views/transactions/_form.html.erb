@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-  <p>You are purchasing one ticket for the train: <%= @train.name %></p>
+  <p>You are purchasing one ticket for the train: <%= @train.train_number %></p>
   
   
 
@@ -24,7 +24,7 @@
 
   <div class="field">
     <%= form.label :ticket_price %>
-    <%= form.text_field :ticket_price, :id => 'ticket_price', :readonly => true %>
+    <%= form.text_field :ticket_price, :id => 'ticket_price', :readonly => true, value: @train.ticket_price %>
   </div>
 
   <div class="field">

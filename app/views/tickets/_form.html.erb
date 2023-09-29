@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :confirmation_number %>
-    <%= form.text_field :confirmation_number %>
+    <%= form.hidden_field :train_id, value: @train.id %>
   </div>
 
+
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Book Ticket"%>
   </div>
 <% end %>

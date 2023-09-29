@@ -45,7 +45,7 @@ class TransactionsController < ApplicationController
   # POST /transactions or /transactions.json
   def create
     @transaction = Transaction.new(transaction_params).lock!("FOR UPDATE NOWAIT")
-    @transaction.transaction_number = Array.new(10){[*"A".."Z", *"0".."9"].sample}.join
+    @transaction.transaction_number = generate_transaction_number
     @train = Train.find(params[:transaction]["train_id"])
     @transaction.passenger_id = current_passenger.id
     @transaction.train_id = @train.id
@@ -95,5 +95,9 @@ class TransactionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def transaction_params
       params.require(:transaction).permit(:transaction_number, :credit_number, :ticket_price, :address, :phone_number)
+    end
+
+    def generate_transaction_number
+      SecureRandom.random_number(900_000) + 100_000
     end
 end
