@@ -13,6 +13,9 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
+    @train = Train.where(id: params[:train_id])[0]
+    @review.train_id = @train.id
+    
   end
 
   # GET /reviews/1/edit
@@ -22,7 +25,14 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
     @review = Review.new(review_params)
-
+    
+    if current_passenger
+      @review.passenger_id = current_passenger.id
+      @review.train_id = params[:train_id]
+    elsif admin_user
+        @review.passenger_id = admin_user.id
+        @review.train_id = params[:train_id]
+      end
     respond_to do |format|
       if @review.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
@@ -65,6 +75,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.require(:review).permit(:rating, :feedback)
+      params.require(:review).permit(:rating, :feedback, :train_id)
     end
 end

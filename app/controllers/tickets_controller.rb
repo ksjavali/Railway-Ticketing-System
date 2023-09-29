@@ -13,6 +13,13 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    if @train.nil?
+      begin
+        @train = Train.where(id: params[:train_id])[0]
+      rescue
+        redirect_to trains_path
+      end
+    end
   end
 
   # GET /tickets/1/edit

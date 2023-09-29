@@ -21,6 +21,10 @@
     <%= form.text_field :feedback %>
   </div>
 
+  <div class="field">
+    <%= form.hidden_field :train_id, value: @review.train_id %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
