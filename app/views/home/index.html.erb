@@ -6,7 +6,8 @@
   <nav>
     <ul>
       <li><%= link_to "My Profile", passenger_path(current_passenger.id) %> </li>
-     
+      <li><%= link_to "All Trains", trains_path %> </li>
+
       <li><%= link_to "All Reviews", reviews_path %> </li>
       <li><%= link_to "My Reviews", reviews_path(:passenger_id => current_passenger.id) %> </li>
      

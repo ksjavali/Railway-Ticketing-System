@@ -3,7 +3,13 @@ class ReviewsController < ApplicationController
 
   # GET /reviews or /reviews.json
   def index
-    @reviews = Review.all
+    @reviews = if params[:train_id].present?
+      Review.where(train_id: params[:train_id])
+   elsif params[:passenger_id].present?
+      Review.where(passenger_id: current_passenger.id)
+   else
+     Review.all
+   end
   end
 
   # GET /reviews/1 or /reviews/1.json
@@ -13,9 +19,9 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
-    @train = Train.where(id: params[:train_id])[0]
+    @train = Train.find_by_id(params[:train_id])
+    puts "#{@train.id} hello bhai sa"
     @review.train_id = @train.id
-    
   end
 
   # GET /reviews/1/edit
@@ -25,14 +31,14 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
     @review = Review.new(review_params)
-    
+    @train = Train.find_by(id: params[:review]["train_id"])
     if current_passenger
       @review.passenger_id = current_passenger.id
-      @review.train_id = params[:train_id]
+      @review.train_id = @train.id
     elsif admin_user
         @review.passenger_id = admin_user.id
-        @review.train_id = params[:train_id]
-      end
+        @review.train_id = @train.id
+    end
     respond_to do |format|
       if @review.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
