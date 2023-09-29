@@ -20,7 +20,6 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @train = Train.find_by_id(params[:train_id])
-    puts "#{@train.id} hello bhai sa"
     @review.train_id = @train.id
   end
 
