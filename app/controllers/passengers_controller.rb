@@ -4,7 +4,11 @@ class PassengersController < ApplicationController
 
   # GET /passengers or /passengers.json
   def index
-    @passengers = Passenger.all
+    if admin_user
+      @passengers = Passenger.all
+    else
+      redirect_to root_url
+    end
   end
 
   # GET /passengers/1 or /passengers/1.json
@@ -13,7 +17,13 @@ class PassengersController < ApplicationController
 
   # GET /passengers/new
   def new
-    @passenger = Passenger.new
+    if !logged_in?
+      @passenger = Passenger.new
+    else
+      redirect_to root_url
+    end
+
+
   end
 
   # GET /passengers/1/edit

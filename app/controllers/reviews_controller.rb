@@ -19,8 +19,7 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
-    @train = Train.find_by_id(params[:train_id])
-    @review.train_id = @train.id
+    @review.train_id = params[:train_id]
   end
 
   # GET /reviews/1/edit
