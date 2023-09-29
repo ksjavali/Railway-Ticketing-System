@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'signup', to: 'passengers#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  get 'delete_passenger/:id', to: 'passengers#destroy', as: 'delete_passenger'
+  # get 'delete_passenger/:id', to: 'passengers#destroy', as: 'delete_passenger'
   get 'delete_admin/:id', to: 'admins#destroy', as: 'delete_admin'
   resources :admin_sessions, only: [:new, :create, :destroy]
   get 'admin_login', to: 'admin_sessions#new', as: 'admin_login'
