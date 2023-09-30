@@ -50,7 +50,6 @@
         <td><%= train.train_capacity %></td>
         <td><%= train.seats_left %></td>
         <td><%= train.average_rating %></td>
-        <td><%= link_to 'Add Review', new_review_path(:train_id => train.id) %></td>
         <td><%= link_to 'Show Reviews', reviews_path(:train_id => train.id) %></td>
         <td><%= link_to 'Book', new_ticket_path(:train_id => train.id) %></td>
         <% if admin_user %>
