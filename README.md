@@ -41,7 +41,14 @@ rails db:seed
 ```
 rails server
 ```
+### Database structure:
+
 
 
 ### Extra credit:
 Implement a search function for the admin to use. The input is the train number; the search result is a list of users who booked this train: Done
+
+### Contibutors:
+1. [Akshat Saxena](https://github.ncsu.edu/asaxen24)
+2. [Kritika Javali](https://github.ncsu.edu/ksjavali)
+3. [Skanda Shastry](https://github.ncsu.edu/sshastr4)
