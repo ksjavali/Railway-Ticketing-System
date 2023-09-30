@@ -11,6 +11,13 @@
   </p>
 <% end %>
 
+<%= form_tag trains_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search_average_rating, params[:search_average_rating], placeholder: "Enter average rating" %>
+    <%= submit_tag "search", :search_average_rating => nil%>
+  </p>
+<% end %>
+
 <table>
   <thead>
     <tr>

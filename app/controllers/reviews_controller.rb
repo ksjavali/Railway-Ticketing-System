@@ -7,7 +7,7 @@ class ReviewsController < ApplicationController
       Review.where(train_id: params[:train_id])
    elsif params[:passenger_id].present?
       Review.where(passenger_id: current_passenger.id)
-   else
+    else
      Review.all
    end
   end
