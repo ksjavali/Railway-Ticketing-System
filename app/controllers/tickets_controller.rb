@@ -3,9 +3,14 @@ class TicketsController < ApplicationController
 
   # GET /tickets or /tickets.json
   def index
-    @tickets = Ticket.all
+    if !admin_user
+      @tickets = Ticket.where(passenger_id: current_passenger.id)
+    elsif params[:search_by_train_number].present?
+      @tickets=Ticket.joins(:train).select('tickets.*').group('tickets.id').having('train_number = ?',params[:search_by_train_number])
+    else
+      @tickets = Ticket.all
+    end
   end
-
   # GET /tickets/1 or /tickets/1.json
   def show
     @train = Train.find_by(id: @ticket.train_id) 

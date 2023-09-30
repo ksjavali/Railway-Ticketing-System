@@ -1,10 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Tickets</h1>
+<% if admin_user %>
+  <%= form_tag tickets_path, :method => 'get' do %>
+    <p>
+      <%= text_field_tag :search_by_train_number, params[:search_by_train_number], placeholder: "Enter train number" %>
+      <%= submit_tag "search"%>
+    </p>
+  <% end %>
+<% end %>
+
+
 
 <table>
   <thead>
     <tr>
+    <th>Train number</th>
       <th>Confirmation number</th>
       <th colspan="3"></th>
     </tr>
@@ -13,6 +24,7 @@
   <tbody>
     <% @tickets.each do |ticket| %>
       <tr>
+      <td><%= Train.find_by(id: ticket.train_id).train_number %></td>
         <td><%= ticket.confirmation_number %></td>
         <td><%= link_to 'Show', ticket %></td>
         <td><%= button_to 'Destroy', ticket, method: :delete, data:{ confirm: 'Are you sure?' } %></td>
