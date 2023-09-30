@@ -41,8 +41,15 @@ class TicketsController < ApplicationController
         @ticket.passenger_id = admin_user.id
         @ticket.train_id = @train.id
     end
+
+    if @train.seats_left < 1
+      redirect_to trains_path, notice: "No seats available!"
+    else
+      @train.seats_left = @train.seats_left - 1
+    end
+
     respond_to do |format|
-      if @ticket.save
+      if @ticket.save & @train.save
         format.html{ redirect_to tickets_url(@ticket), notice: "Ticket booked successfully. Confirmation number: #{@ticket.confirmation_number}" }
         format.json { render :show, status: :created, location: @ticket }
       else
