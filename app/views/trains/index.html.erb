@@ -64,5 +64,7 @@
 </table>
 
 <br>
+<% if admin_user %>
+  <%= link_to 'New Train', new_train_path %>
+<% end %>
 
-<%= link_to 'New Train', new_train_path %>
