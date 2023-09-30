@@ -83,11 +83,10 @@ Attributes:
 * Phone number
 * Address
 * Credit-card information (fake)
-* Functionalities:
 
-Authentication:
+Functionalities:
 
-* Sign up for a new account:<br>Log in with a username (or email) and password.
+* Authentication: <br> Sign up for a new account,<br>Log in with a username (or email) and password.
 * Profile Management: <br>Edit their own profile (excluding ID).<br>Delete their own account.
 * Train Booking:<br>View upcoming trains with available seats. <br>List trains with an average rating above a certain threshold.<br>List trains by specific departure or termination stations.<br>Book a train.<br>Cancel a ticket.<br>Check their trip history.<br>
 * Review Management:<br>Write and edit their own train reviews.<br>List reviews written by a specific user.<br>List reviews written for a specific train.
