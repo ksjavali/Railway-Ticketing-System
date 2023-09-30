@@ -1,3 +1,5 @@
+
+
 <%= form_with(model: ticket) do |form| %>
   <% if ticket.errors.any? %>
     <div id="error_explanation">
@@ -14,7 +16,12 @@
   
   <div class="field">
     <%= form.label :credit_number, "Credit Card Number" %>
-    <%= form.text_field :credit_number, :id => 'credit_number',value: current_passenger.credit_number %>
+    <% if admin_user %>
+      <%= form.text_field :credit_number, :id => 'credit_number',value: admin_user.credit_number %>
+    <% else %>
+      <%= form.text_field :credit_number, :id => 'credit_number',value: current_passenger.credit_number %>
+    <% end %>
+    
   </div>
 
   <div class="field">
@@ -24,13 +31,31 @@
 
   <div class="field">
     <%= form.label :address, "Address" %>
-    <%= form.text_field :address, :id => 'address', value: current_passenger.address  %>
+    <% if admin_user %>
+      <%= form.text_field :address, :id => 'address', value: admin_user.address  %>
+    <% else %>
+      <%= form.text_field :address, :id => 'address', value: current_passenger.address  %>
+    <% end %>
+    
   </div>
 
   <div class="field">
     <%= form.label :phone_number, "Phone Number" %>
-    <%= form.text_field :phone_number, :id => 'phone_number', value: current_passenger.phone_number %>
+    <% if admin_user %>
+      <%= form.text_field :phone_number, :id => 'phone_number', value: admin_user.phone_number %>
+    <% else %>
+      <%= form.text_field :phone_number, :id => 'phone_number', value: current_passenger.phone_number %>
+    <% end %>
   </div>
+ 
+
+  <% if admin_user %>
+    <div class="field">
+      <%= form.label :passenger_id %>
+      <%= form.text_field :passenger_id %>
+    </div>
+
+  <% end %>
 
   <div class="field">
     <%= form.hidden_field :train_id, value: @train.id %>

@@ -19,6 +19,9 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    if admin_user
+      @passengers = Passenger.all
+    end
     if @train.nil?
       begin
         @train = Train.where(id: params[:train_id])[0]
@@ -43,8 +46,9 @@ class TicketsController < ApplicationController
       @ticket.passenger_id = current_passenger.id
       @ticket.train_id = @train.id
     elsif admin_user
-        @ticket.passenger_id = admin_user.id
-        @ticket.train_id = @train.id
+      puts "admin ticket booking #{params[:ticket]["passenger_id"]}"
+      @ticket.passenger_id = params[:ticket]["passenger_id"]
+      @ticket.train_id = @train.id
     end
 
     if @train.seats_left < 1
@@ -58,7 +62,6 @@ class TicketsController < ApplicationController
         format.html{ redirect_to tickets_url(@ticket), notice: "Ticket booked successfully. Confirmation number: #{@ticket.confirmation_number}" }
         format.json { render :show, status: :created, location: @ticket }
       else
-        # redirect_to tickets_path, notice: "Error in creating ticket. Confirmation number: #{@ticket.confirmation_number}"
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
@@ -98,7 +101,7 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     # def ticket_params
-    #   params.require(:ticket).permit(:confirmation_number)
+    #   params.require(:ticket).permit(:passenger_id,:credit_number,:ticket_price,:address,:phone_number,)
     # end
 
     #Generate the confirmation number using SecureRandom

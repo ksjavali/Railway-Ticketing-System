@@ -9,7 +9,7 @@ class TrainsController < ApplicationController
       @trains = Train.where(departure_station: params[:search_departure_station])
     elsif params[:search_termination_station].present?
       @trains = Train.where(termination_station: params[:search_termination_station])  
-    elsif params[:search_average_rating]
+    elsif params[:search_average_rating].present?
       @trains = Train.where('average_rating > ?', params[:search_average_rating])
     else
       @trains = Train.all

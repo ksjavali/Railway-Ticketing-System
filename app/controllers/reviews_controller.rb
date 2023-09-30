@@ -43,8 +43,8 @@ class ReviewsController < ApplicationController
     end
     respond_to do |format|
       @train.average_rating = @train.average_rating + @review.rating
-      puts "#{Review.where(train_id: @train.id).count} hello hello"
-      puts "#{@train.average_rating} hello hello"
+      # puts "#{Review.where(train_id: @train.id).count} hello hello"
+      # puts "#{@train.average_rating} hello hello"
       @train.average_rating = @train.average_rating/(Review.where(train_id: @train.id).count+1)
       @train.average_rating = @train.average_rating.round(2)
 

@@ -51,7 +51,5 @@
 </p>
 
 <%= render 'form', ticket: @ticket %>
-<%= render 'transaction_form', ticket: @ticket %>
-<%= link_to 'Transaction Info', new_transaction_path(:train_id => @train.id, :ticket_price => @train.ticket_price) %>
 
 <%= link_to 'Back', trains_path %>

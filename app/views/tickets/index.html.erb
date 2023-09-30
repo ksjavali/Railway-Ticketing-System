@@ -16,6 +16,7 @@
   <thead>
     <tr>
     <th>Train number</th>
+    <th> Passenger ID </th>
       <th>Confirmation number</th>
       <th colspan="3"></th>
     </tr>
@@ -25,6 +26,7 @@
     <% @tickets.each do |ticket| %>
       <tr>
       <td><%= Train.find_by(id: ticket.train_id).train_number %></td>
+      <td><%= ticket.passenger_id %></td>
         <td><%= ticket.confirmation_number %></td>
         <td><%= link_to 'Show', ticket %></td>
         <td><%= button_to 'Destroy', ticket, method: :delete, data:{ confirm: 'Are you sure?' } %></td>
