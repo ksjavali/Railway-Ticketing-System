@@ -46,7 +46,6 @@ class TicketsController < ApplicationController
       @ticket.passenger_id = current_passenger.id
       @ticket.train_id = @train.id
     elsif admin_user
-      puts "admin ticket booking #{params[:ticket]["passenger_id"]}"
       @ticket.passenger_id = params[:ticket]["passenger_id"]
       @ticket.train_id = @train.id
     end

@@ -3,16 +3,24 @@ class TrainsController < ApplicationController
 
   # GET /trains or /trains.json
   def index
-    if params[:search_departure_station].present? && params[:search_termination_station].present?
-      @trains = Train.where('departure_station = ? AND termination_station = ?', params[:search_departure_station], params[:search_termination_station])
-    elsif params[:search_departure_station].present?
-      @trains = Train.where(departure_station: params[:search_departure_station])
-    elsif params[:search_termination_station].present?
-      @trains = Train.where(termination_station: params[:search_termination_station])  
-    elsif params[:search_average_rating].present?
-      @trains = Train.where('average_rating > ?', params[:search_average_rating])
+    
+    
+    if !admin_user
+      current_time = Time.now
+      @trains = Train.where('departure_date > ?', current_time)
     else
       @trains = Train.all
+    end
+
+    # Apply additional search filters here...
+    if params[:search_departure_station].present? && params[:search_termination_station].present?
+      @trains = @trains.where('departure_station = ? AND termination_station = ?', params[:search_departure_station], params[:search_termination_station])
+    elsif params[:search_departure_station].present?
+      @trains = @trains.where(departure_station: params[:search_departure_station])
+    elsif params[:search_termination_station].present?
+      @trains = @trains.where(termination_station: params[:search_termination_station])
+    elsif params[:search_average_rating].present?
+      @trains = @trains.where('average_rating > ?', params[:search_average_rating])
     end
   end
 
