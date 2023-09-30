@@ -2,10 +2,26 @@
 
 <h1>Reviews</h1>
 
+
+<%= form_tag reviews_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search_by_user, params[:search_by_user], placeholder: "Enter user's name" %>
+    <%= submit_tag "search" %>
+  </p>
+<% end %>
+
+<%= form_tag reviews_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search_by_train_number, params[:search_by_train_number], placeholder: "Enter train number" %>
+    <%= submit_tag "search" %>
+  </p>
+<% end %>
+
 <table>
   <thead>
     <tr>
     <th>Name</th>
+    <th>Train Number</th>
     <th>Rating</th>
       <th>Feedback</th>
       <th colspan="3"></th>
@@ -20,6 +36,7 @@
       <% else %>
         <td><%= Passenger.find_by(id: review.passenger_id).name %></td>
       <% end %>
+      <td><%= Train.find_by(id: review.train_id).train_number %></td>
       <td><%= review.rating %></td>
       <td><%= review.feedback %></td>
       <% if current_passenger.id == review.passenger_id %>

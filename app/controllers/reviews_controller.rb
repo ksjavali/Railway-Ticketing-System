@@ -7,6 +7,10 @@ class ReviewsController < ApplicationController
       Review.where(train_id: params[:train_id])
    elsif params[:passenger_id].present?
       Review.where(passenger_id: current_passenger.id)
+   elsif params[:search_by_train_number].present?
+      Review.joins(:train).select('reviews.*').group('reviews.id').having('train_number = ?',params[:search_by_train_number])
+   elsif params[:search_by_user].present?
+      Review.joins(:passenger).select('reviews.*').group('reviews.id').having('name= ? ',params[:search_by_user])
     else
      Review.all
    end
