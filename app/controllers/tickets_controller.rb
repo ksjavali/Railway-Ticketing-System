@@ -75,8 +75,10 @@ class TicketsController < ApplicationController
 
   # DELETE /tickets/1 or /tickets/1.json
   def destroy
+    @train = Train.find_by(id: @ticket.train_id)
+    @train.seats_left = @train.seats_left + 1
     respond_to do |format|
-      if @ticket.delete
+      if @ticket.delete && @train.save
         format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
         format.json { head :no_content }
       end

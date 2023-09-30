@@ -13,6 +13,9 @@ class PassengersController < ApplicationController
 
   # GET /passengers/1 or /passengers/1.json
   def show
+    if !admin_user && current_passenger.id != @passenger.id
+      redirect_to root_url
+    end  
   end
 
   # GET /passengers/new

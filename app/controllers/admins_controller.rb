@@ -1,19 +1,22 @@
 class AdminsController < ApplicationController
-  skip_before_action :authorized, only: [:new,:create]
+
   before_action :set_admin, only: %i[ show edit update destroy ]
 
   # GET /admins or /admins.json
   def index
-    @admins = Admin.all
+    redirect_to root_url
   end
 
   # GET /admins/1 or /admins/1.json
   def show
+    if !admin_user
+      redirect_to root_url
+    end
   end
 
   # GET /admins/new
   def new
-    @admin = Admin.new
+    redirect_to root_url
   end
 
   # GET /admins/1/edit
@@ -50,10 +53,8 @@ class AdminsController < ApplicationController
 
   # DELETE /admins/1 or /admins/1.json
   def destroy
-    @admin.destroy
-
     respond_to do |format|
-      format.html { redirect_to admins_url, notice: "Admin was successfully destroyed." }
+      format.html { redirect_to root_url, notice: "Restricted" }
       format.json { head :no_content }
     end
   end

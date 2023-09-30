@@ -24,7 +24,7 @@
         <td><%= passenger.phone_number %></td>
         <td><%= passenger.address %></td>
         <td><%= passenger.credit_number %></td>
-        <td><%= link_to 'Show', passenger %></td>
+        <td><%= link_to 'Show', passenger_path(passenger) %></td>
         <td><%= link_to 'Edit', edit_passenger_path(passenger) %></td>
         <td><%= button_to 'Destroy', passenger, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
