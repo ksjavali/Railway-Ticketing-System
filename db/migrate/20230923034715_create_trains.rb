@@ -11,7 +11,7 @@ class CreateTrains < ActiveRecord::Migration[6.1]
       t.integer :ticket_price
       t.integer :train_capacity
       t.integer :seats_left
-
+      t.float :average_rating
       t.timestamps
     end
   end

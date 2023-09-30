@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 2023_09_29_012210) do
     t.integer "ticket_price"
     t.integer "train_capacity"
     t.integer "seats_left"
+    t.float "average_rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

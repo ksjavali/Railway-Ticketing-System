@@ -20,11 +20,13 @@
       <% else %>
         <td><%= Passenger.find_by(id: review.passenger_id).name %></td>
       <% end %>
-        <td><%= review.rating %></td>
-        <td><%= review.feedback %></td>
-        <td><%= link_to 'Show', review %></td>
-        <td><%= link_to 'Edit', edit_review_path(review) %></td>
-        <td><%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td><%= review.rating %></td>
+      <td><%= review.feedback %></td>
+      <% if current_passenger.id == review.passenger_id %>
+          <td><%= link_to 'Show', review %></td>
+          <td><%= link_to 'Edit', edit_review_path(review) %></td>
+          <td><%= button_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
