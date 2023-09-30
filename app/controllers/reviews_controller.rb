@@ -38,7 +38,13 @@ class ReviewsController < ApplicationController
         @review.train_id = @train.id
     end
     respond_to do |format|
-      if @review.save
+      @train.average_rating = @train.average_rating + @review.rating
+      puts "#{Review.where(train_id: @train.id).count} hello hello"
+      puts "#{@train.average_rating} hello hello"
+      @train.average_rating = @train.average_rating/(Review.where(train_id: @train.id).count+1)
+      @train.average_rating = @train.average_rating.round(2)
+
+      if @review.save & @train.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
         format.json { render :show, status: :created, location: @review }
       else
@@ -63,6 +69,17 @@ class ReviewsController < ApplicationController
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
+    @train = Train.find_by(id: @review.train_id)
+    @count = Review.where(train_id: @train.id).count
+    if @count != 1
+        @train.average_rating = (@train.average_rating* @count- @review.rating)/(@count - 1)
+        @train.average_rating = @train.average_rating.round(2)
+
+        @train.save!
+    else
+        @train.average_rating = 0
+    end
+    
     @review.destroy
 
     respond_to do |format|

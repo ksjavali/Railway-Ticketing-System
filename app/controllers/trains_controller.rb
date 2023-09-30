@@ -30,7 +30,7 @@ class TrainsController < ApplicationController
   # POST /trains or /trains.json
   def create
     @train = Train.new(train_params)
-
+    @train.average_rating=0
     respond_to do |format|
       if @train.save
         format.html { redirect_to train_url(@train), notice: "Train was successfully created." }
@@ -45,6 +45,7 @@ class TrainsController < ApplicationController
   # PATCH/PUT /trains/1 or /trains/1.json
   def update
     respond_to do |format|
+      @train.average_rating=0
       if @train.update(train_params)
         format.html { redirect_to train_url(@train), notice: "Train was successfully updated." }
         format.json { render :show, status: :ok, location: @train }
