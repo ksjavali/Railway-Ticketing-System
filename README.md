@@ -49,7 +49,7 @@ rails server
 
 ## Components:
 ### Admin
-Attributes:
+<b>Attributes:</b>
 * Username
 * Name
 * Email
@@ -58,7 +58,7 @@ Attributes:
 * Address
 * Credit number
 
-Functionalities:
+<b>Functionalities:</b>
 
 * Authentication:<br> Log in with a username (or email) and password.
 * Profile Management:<br> Edit their own profile (except for ID, username, and password).
@@ -73,7 +73,7 @@ List reviews written for a specific train.<br>
 
 
 ### Passenger
-Attributes:
+<b>Attributes:</b>
 
 * ID
 * Username
@@ -84,15 +84,16 @@ Attributes:
 * Address
 * Credit-card information (fake)
 
-Functionalities:
 
-* Authentication: <br> Sign up for a new account,<br>Log in with a username (or email) and password.
+<b>Functionalities:</b>
+
+* Authentication: <br>Sign up for a new account,<br>Log in with a username (or email) and password.
 * Profile Management: <br>Edit their own profile (excluding ID).<br>Delete their own account.
 * Train Booking:<br>View upcoming trains with available seats. <br>List trains with an average rating above a certain threshold.<br>List trains by specific departure or termination stations.<br>Book a train.<br>Cancel a ticket.<br>Check their trip history.<br>
 * Review Management:<br>Write and edit their own train reviews.<br>List reviews written by a specific user.<br>List reviews written for a specific train.
 
 ### Train
-Attributes:
+<b>Attributes:</b>
 
 * ID
 * Train number
@@ -106,31 +107,33 @@ Attributes:
 * Train capacity (maximum seats available)
 * Number of seats left
 
-Functionalities:
+
+<b>Functionalities:</b>
 
 * Train Management: <br>Admin can create, view, edit, and delete trains.<br>
 * Ticket Booking:<br>Passengers can book a train.<br>
 
 ### Ticket
-Attributes:
+<b>Attributes:</b>
 
 * ID
 * Passenger ID
 * Train ID
 * Confirmation Number
 
-Functionalities:
+
+<b>Functionalities:</b>
 * Ticket Booking:<br>Passengers can book a train.<br>
 
 ### Review
-Attributes:
+<b>Attributes:</b>
 
 * Passenger ID
 * Train ID
 * Rating (1 – 5)
 * Feedback
 
-Functionalities:
+<b>Functionalities:</b>
 
 * Review Management:<br>Passengers can write and edit their own train reviews.<br>Admin can create, view, edit, and delete reviews.<br>
 * Review Listing:<br>List reviews written by a specific user.<br>List reviews written for a specific train.<br>
