@@ -43,6 +43,7 @@ rails server
 ```
 ### Database structure:
 
+<img width="925" alt="Screenshot 2023-09-30 at 7 07 47 PM" src="https://media.github.ncsu.edu/user/26587/files/bf361145-a1fb-4cb7-942f-803e7bbf4d49">
 
 
 ### Extra credit:
