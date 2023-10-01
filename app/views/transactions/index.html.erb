@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Transactions History</h1>
+
+<table>
+  <thead>
+    <tr>
+    <th>Passenger ID</th>
+      <th>Transaction number</th>
+      <th>Ticket price</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+<% if admin_user %>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+      <td><%= transaction.passenger_id %></td>
+        <td><%= transaction.transaction_number %></td>
+        <td><%= transaction.ticket_price %></td>
+        <td><%= link_to 'Show', transaction %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% else %>
+
+    <tbody>
+      <% @transactions.each do |transaction| %>
+        <tr>
+         <% if current_passenger.id == transaction.passenger_id %>
+          <td><%= transaction.passenger_id %></td>
+          <td><%= transaction.transaction_number %></td>
+          <td><%= transaction.ticket_price %></td>
+          <td><%= link_to 'Show', transaction %></td>
+        <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+<% end %>

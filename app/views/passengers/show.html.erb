@@ -31,4 +31,5 @@
 </p>
 
 <%= link_to 'Edit', edit_passenger_path(@passenger) %> |
-<%= link_to 'Back', passengers_path %>
+<%= link_to 'Back', root_url %> |
+<%= button_to 'Destroy', @passenger, method: :delete, data: { confirm: 'Are you sure?' } %>

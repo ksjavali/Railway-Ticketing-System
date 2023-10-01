@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_25_061328) do
+ActiveRecord::Schema.define(version: 2023_09_29_012210) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
     t.string "credit_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.string "string"
   end
 
   create_table "passengers", force: :cascade do |t|
@@ -32,8 +34,8 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
     t.string "credit_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "train_id", null: false
-    t.index ["train_id"], name: "index_passengers_on_train_id"
+    t.string "password_digest"
+    t.string "string"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -58,8 +60,7 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
   end
 
   create_table "trains", force: :cascade do |t|
-    t.string "train_number"
-    t.string "string"
+    t.integer "train_number"
     t.string "departure_station"
     t.string "termination_station"
     t.date "departure_date"
@@ -69,13 +70,29 @@ ActiveRecord::Schema.define(version: 2023_09_25_061328) do
     t.integer "ticket_price"
     t.integer "train_capacity"
     t.integer "seats_left"
+    t.float "average_rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "passengers", "trains"
+  create_table "transactions", force: :cascade do |t|
+    t.integer "transaction_number"
+    t.string "credit_number"
+    t.integer "ticket_price"
+    t.string "address"
+    t.string "phone_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "passenger_id", null: false
+    t.integer "train_id", null: false
+    t.index ["passenger_id"], name: "index_transactions_on_passenger_id"
+    t.index ["train_id"], name: "index_transactions_on_train_id"
+  end
+
   add_foreign_key "reviews", "passengers"
   add_foreign_key "reviews", "trains"
   add_foreign_key "tickets", "passengers"
   add_foreign_key "tickets", "trains"
+  add_foreign_key "transactions", "passengers"
+  add_foreign_key "transactions", "trains"
 end

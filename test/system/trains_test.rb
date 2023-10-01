@@ -20,7 +20,6 @@ class TrainsTest < ApplicationSystemTestCase
     fill_in "Departure station", with: @train.departure_station
     fill_in "Departure time", with: @train.departure_time
     fill_in "Seats left", with: @train.seats_left
-    fill_in "String", with: @train.string
     fill_in "Termination station", with: @train.termination_station
     fill_in "Ticket price", with: @train.ticket_price
     fill_in "Train capacity", with: @train.train_capacity
@@ -41,7 +40,6 @@ class TrainsTest < ApplicationSystemTestCase
     fill_in "Departure station", with: @train.departure_station
     fill_in "Departure time", with: @train.departure_time
     fill_in "Seats left", with: @train.seats_left
-    fill_in "String", with: @train.string
     fill_in "Termination station", with: @train.termination_station
     fill_in "Ticket price", with: @train.ticket_price
     fill_in "Train capacity", with: @train.train_capacity

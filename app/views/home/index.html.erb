@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<% if current_passenger %>
+  <h2>Logged in as <%= current_passenger.name %></h2>
+  <a><%= link_to "Log Out", logout_path %></a><br>
+  <nav>
+    <ul>
+      <li><%= link_to "My Profile", passenger_path(current_passenger.id) %> </li>
+      <li><%= link_to "All Trains", trains_path %> </li>
+      <li><%= link_to "Trip History", tickets_path(:passenger_id => current_passenger.id) %> </li>
+      <li><%= link_to "All Reviews", reviews_path %> </li>
+      <li><%= link_to "My Reviews", reviews_path(:passenger_id => current_passenger.id) %> </li>
+
+    </ul>
+  </nav>
+
+  <% elsif admin_user%>
+  <h2>Logged in as Admin</h2>
+  <a><%= link_to "Log Out", admin_logout_path %></a><br>
+  <nav>
+    <ul>
+      <li><%= link_to "My Profile", admin_path(admin_user.id) %></li>
+      <li><%= link_to "All Trains", trains_path %></li>
+      <li><%= link_to "All Passengers", passengers_path %></li>
+      <li><%= link_to "All Reviews", reviews_path %></li>
+      <li><%= link_to "All Tickets Booked", tickets_path %></li>
+      <li><%= link_to "Log Out", admin_logout_path %></li>
+    </ul>
+  </nav>
+<% else %>
+  <nav>
+    <ul>
+      <li><%= link_to "Sign Up", signup_path %> </li>
+      <li><%= link_to "Log In", login_path %></li>
+      <li><%= link_to "Login as Admin", admin_login_path %> </li>
+    </ul>
+  </nav>
+  <% end %>

@@ -1,3 +1,5 @@
+
+
 <%= form_with(model: ticket) do |form| %>
   <% if ticket.errors.any? %>
     <div id="error_explanation">
@@ -10,13 +12,57 @@
       </ul>
     </div>
   <% end %>
-
+  <p>You are purchasing one ticket for the train: <%= @train.train_number %></p>
+  
   <div class="field">
-    <%= form.label :confirmation_number %>
-    <%= form.text_field :confirmation_number %>
+    <%= form.label :credit_number, "Credit Card Number" %>
+    <% if admin_user %>
+      <%= form.text_field :credit_number, :id => 'credit_number',value: admin_user.credit_number %>
+    <% else %>
+      <%= form.text_field :credit_number, :id => 'credit_number',value: current_passenger.credit_number %>
+    <% end %>
+    
   </div>
 
+  <div class="field">
+    <%= form.label :ticket_price %>
+    <%= form.text_field :ticket_price, :id => 'ticket_price', :readonly => true, value: @train.ticket_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address, "Address" %>
+    <% if admin_user %>
+      <%= form.text_field :address, :id => 'address', value: admin_user.address  %>
+    <% else %>
+      <%= form.text_field :address, :id => 'address', value: current_passenger.address  %>
+    <% end %>
+    
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number, "Phone Number" %>
+    <% if admin_user %>
+      <%= form.text_field :phone_number, :id => 'phone_number', value: admin_user.phone_number %>
+    <% else %>
+      <%= form.text_field :phone_number, :id => 'phone_number', value: current_passenger.phone_number %>
+    <% end %>
+  </div>
+ 
+
+  <% if admin_user %>
+    <div class="field">
+      <%= form.label :passenger_id %>
+      <%= form.text_field :passenger_id %>
+    </div>
+
+  <% end %>
+
+  <div class="field">
+    <%= form.hidden_field :train_id, value: @train.id %>
+  </div>
+
+
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Book Ticket"%>
   </div>
 <% end %>

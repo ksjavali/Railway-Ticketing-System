@@ -3,7 +3,17 @@ class ReviewsController < ApplicationController
 
   # GET /reviews or /reviews.json
   def index
-    @reviews = Review.all
+    @reviews = if params[:train_id].present?
+      Review.where(train_id: params[:train_id])
+   elsif params[:passenger_id].present?
+      Review.where(passenger_id: current_passenger.id)
+   elsif params[:search_by_train_number].present?
+      Review.joins(:train).select('reviews.*').group('reviews.id').having('train_number = ?',params[:search_by_train_number])
+   elsif params[:search_by_user].present?
+      Review.joins(:passenger).select('reviews.*').group('reviews.id').having('name= ? ',params[:search_by_user])
+    else
+     Review.all
+   end
   end
 
   # GET /reviews/1 or /reviews/1.json
@@ -13,6 +23,7 @@ class ReviewsController < ApplicationController
   # GET /reviews/new
   def new
     @review = Review.new
+    @review.train_id = params[:train_id]
   end
 
   # GET /reviews/1/edit
@@ -22,9 +33,22 @@ class ReviewsController < ApplicationController
   # POST /reviews or /reviews.json
   def create
     @review = Review.new(review_params)
-
+    @train = Train.find_by(id: params[:review]["train_id"])
+    if current_passenger
+      @review.passenger_id = current_passenger.id
+      @review.train_id = @train.id
+    elsif admin_user
+        @review.passenger_id = admin_user.id
+        @review.train_id = @train.id
+    end
     respond_to do |format|
-      if @review.save
+      @train.average_rating = @train.average_rating + @review.rating
+      # puts "#{Review.where(train_id: @train.id).count} hello hello"
+      # puts "#{@train.average_rating} hello hello"
+      @train.average_rating = @train.average_rating/(Review.where(train_id: @train.id).count+1)
+      @train.average_rating = @train.average_rating.round(2)
+
+      if @review.save & @train.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
         format.json { render :show, status: :created, location: @review }
       else
@@ -49,6 +73,17 @@ class ReviewsController < ApplicationController
 
   # DELETE /reviews/1 or /reviews/1.json
   def destroy
+    @train = Train.find_by(id: @review.train_id)
+    @count = Review.where(train_id: @train.id).count
+    if @count != 1
+        @train.average_rating = (@train.average_rating* @count- @review.rating)/(@count - 1)
+        @train.average_rating = @train.average_rating.round(2)
+
+        @train.save!
+    else
+        @train.average_rating = 0
+    end
+    
     @review.destroy
 
     respond_to do |format|
@@ -65,6 +100,6 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.require(:review).permit(:rating, :feedback)
+      params.require(:review).permit(:rating, :feedback, :train_id)
     end
 end
