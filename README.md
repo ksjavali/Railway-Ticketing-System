@@ -3,7 +3,7 @@
 Please send an email to sshastr4@ncsu.edu if application is not running on VCL.
 
 ## Link to deployed application:
-The application is deployed on this link:
+The application is deployed on this link:<br>  http://152.7.177.10:8080/
 
 
 ## Admin Credentials:
