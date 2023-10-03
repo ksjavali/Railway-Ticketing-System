@@ -39,7 +39,7 @@
       <td><%= Train.find_by(id: review.train_id).train_number %></td>
       <td><%= review.rating %></td>
       <td><%= review.feedback %></td>
-      <% if current_passenger.id == review.passenger_id %>
+      <% if current_passenger && review.passenger_id && current_passenger.id == review.passenger_id %>
           <td><%= link_to 'Show', review %></td>
           <td><%= link_to 'Edit', edit_review_path(review) %></td>
           <td><%= button_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
