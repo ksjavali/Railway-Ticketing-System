@@ -42,11 +42,11 @@ class ReviewsController < ApplicationController
         @review.train_id = @train.id
     end
     respond_to do |format|
-      @train.average_rating = @train.average_rating + @review.rating
+      @train.average_rating = (@train.average_rating + @review.rating)/(Review.where(train_id: @train.id).count+1).round(2)
       # puts "#{Review.where(train_id: @train.id).count} hello hello"
       # puts "#{@train.average_rating} hello hello"
-      @train.average_rating = @train.average_rating/(Review.where(train_id: @train.id).count+1)
-      @train.average_rating = @train.average_rating.round(2)
+      #@train.average_rating = @train.average_rating/(Review.where(train_id: @train.id).count+1)
+      #@train.average_rating = @train.average_rating.round(2)
 
       if @review.save & @train.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }

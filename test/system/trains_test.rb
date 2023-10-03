@@ -53,7 +53,7 @@ class TrainsTest < ApplicationSystemTestCase
   test "destroying a Train" do
     visit trains_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
     assert_text "Train was successfully destroyed"

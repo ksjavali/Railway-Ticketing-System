@@ -1,6 +1,8 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[ show edit update destroy ]
 
+  
+
   # GET /tickets or /tickets.json
   def index
     if !admin_user
@@ -33,6 +35,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1/edit
   def edit
+    @train = Train.find_by(id: @ticket.train_id) 
   end
 
   # POST /tickets or /tickets.json
@@ -68,7 +71,7 @@ class TicketsController < ApplicationController
   end
 
   # PATCH/PUT /tickets/1 or /tickets/1.json
-  def update
+  def update  
     respond_to do |format|
       if @ticket.update(ticket_params)
         format.html { redirect_to ticket_url(@ticket), notice: "Ticket was successfully updated." }
@@ -99,9 +102,9 @@ class TicketsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    # def ticket_params
-    #   params.require(:ticket).permit(:passenger_id,:credit_number,:ticket_price,:address,:phone_number,)
-    # end
+     def ticket_params
+       params.require(:ticket).permit(:passenger_id,:credit_number,:ticket_price,:address,:phone_number)
+     end
 
     #Generate the confirmation number using SecureRandom
     def generate_confirmation_number

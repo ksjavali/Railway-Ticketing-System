@@ -45,7 +45,7 @@ class AdminsTest < ApplicationSystemTestCase
   test "destroying a Admin" do
     visit admins_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
     assert_text "Admin was successfully destroyed"

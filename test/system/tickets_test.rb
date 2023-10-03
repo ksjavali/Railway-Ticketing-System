@@ -35,7 +35,7 @@ class TicketsTest < ApplicationSystemTestCase
   test "destroying a Ticket" do
     visit tickets_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
     assert_text "Ticket was successfully destroyed"

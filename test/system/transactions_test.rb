@@ -43,7 +43,7 @@ class TransactionsTest < ApplicationSystemTestCase
   test "destroying a Transaction" do
     visit transactions_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
     assert_text "Transaction was successfully destroyed"
