@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
   def create
       passenger = Passenger.find_by_email(params[:email])
-      if passenger && passenger.authenticate(params[:password])
+      if passenger && passenger.authenticate(params[:password]) && !passenger.is_admin
         session[:passenger_id] = passenger.id
         redirect_to root_url, notice: "Logged in!"
       else

@@ -19,10 +19,17 @@ class TicketsController < ApplicationController
   end
 
   # GET /tickets/new
+
+  def ticket_book
+    @ticket = Ticket.new
+    @train = Train.find_by(id: params[:train_id])
+    @passengers = Passenger.where(is_admin: false)
+  end
+
   def new
     @ticket = Ticket.new
     if admin_user
-      @passengers = Passenger.all
+      @passengers = Passenger.where(is_admin: false)
     end
     if @train.nil?
       begin
@@ -53,19 +60,47 @@ class TicketsController < ApplicationController
       @ticket.train_id = @train.id
     end
 
-    if @train.seats_left < 1
-      redirect_to trains_path, notice: "No seats available!"
-    else
-      @train.seats_left = @train.seats_left - 1
-    end
+    seats = @train.seats_left-1
 
     respond_to do |format|
-      if @ticket.save & @train.save
+      if seats>0 && @ticket.save
+        @train.seats_left = @train.seats_left - 1
+        @train.save
         format.html{ redirect_to tickets_url(@ticket), notice: "Ticket booked successfully. Confirmation number: #{@ticket.confirmation_number}" }
         format.json { render :show, status: :created, location: @ticket }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to trains_path, notice: "No seats left"}
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def ticket_book_create
+    @ticket1 = Ticket.new
+    @ticket2 = Ticket.new
+    @train = Train.find_by(id: params[:ticket]["train_id"])
+    confirmation_number = generate_confirmation_number
+    @ticket1.confirmation_number = confirmation_number
+    @ticket2.confirmation_number = confirmation_number
+
+    
+    @ticket1.passenger_id = current_passenger.id
+    @ticket2.passenger_id = params[:ticket]["passenger_id"]
+    @ticket1.train_id = @train.id
+    @ticket2.train_id = @train.id
+    
+
+    seats = @train.seats_left-1
+
+    respond_to do |format|
+      if seats>0 && @ticket1.save && @ticket2.save
+        @train.seats_left = @train.seats_left - 1
+        @train.save
+        format.html{ redirect_to tickets_url(@ticket1), notice: "Ticket booked successfully. Confirmation number: #{@ticket1.confirmation_number}" }
+        format.json { render :show, status: :created, location: @ticket1 }
+      else
+        format.html { redirect_to trains_path, notice: "No seats left"}
+        format.json { render json: @ticket1.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -86,9 +121,11 @@ class TicketsController < ApplicationController
   # DELETE /tickets/1 or /tickets/1.json
   def destroy
     @train = Train.find_by(id: @ticket.train_id)
-    @train.seats_left = @train.seats_left + 1
+    
     respond_to do |format|
-      if @ticket.delete && @train.save
+      if @ticket.delete 
+        @train.seats_left = @train.seats_left + 1
+        @train.save
         format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
         format.json { head :no_content }
       end

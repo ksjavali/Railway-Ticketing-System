@@ -60,8 +60,13 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
+    @train = Train.find_by(id: params[:review]["train_id"])
+    @count = Review.where(train_id: @train.id).count
     respond_to do |format|
       if @review.update(review_params)
+        @total_rating = Review.sum(:rating)
+        @train.average_rating = (@total_rating/@count).round(2)
+        @train.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
         format.json { render :show, status: :ok, location: @review }
       else

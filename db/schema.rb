@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2023_09_29_012210) do
     t.string "phone_number"
     t.string "address"
     t.string "credit_number"
+    t.boolean "is_admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
