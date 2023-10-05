@@ -5,7 +5,8 @@ class PassengersController < ApplicationController
   # GET /passengers or /passengers.json
   def index
     if admin_user and params[:search_by_train_number].present?
-      @passengers = Passenger.joins(tickets: :train).where(trains: { train_number: params[:search_by_train_number] })
+      @passengers = Passenger.joins(tickets: :train).where(trains: { train_number: params[:search_by_train_number] }).where(id: Passenger.select('DISTINCT id'))
+      @passengers = @passengers.distinct { |passenger| passenger.id }
     elsif admin_user
       @passengers = Passenger.where(is_admin: false)
     else
@@ -16,6 +17,8 @@ class PassengersController < ApplicationController
   # GET /passengers/1 or /passengers/1.json
   def show
     if !admin_user && current_passenger.id != @passenger.id
+      redirect_to root_url
+    elsif admin_user && @passenger.id == 1
       redirect_to root_url
     end  
   end
@@ -33,6 +36,11 @@ class PassengersController < ApplicationController
 
   # GET /passengers/1/edit
   def edit
+    if admin_user && @passenger.id == 1
+      redirect_to root_url
+    elsif !admin_user && current_passenger.id != @passenger.id
+      redirect_to root_url
+    end  
   end
 
   # POST /passengers or /passengers.json

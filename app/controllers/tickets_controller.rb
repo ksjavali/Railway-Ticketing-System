@@ -50,7 +50,7 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new
     @train = Train.find_by(id: params[:ticket]["train_id"])
     @ticket.confirmation_number = generate_confirmation_number
-    
+    @ticket.username = Passenger.find_by(id: current_passenger.id).name
 
     if current_passenger
       @ticket.passenger_id = current_passenger.id
@@ -63,7 +63,7 @@ class TicketsController < ApplicationController
     seats = @train.seats_left-1
 
     respond_to do |format|
-      if seats>0 && @ticket.save
+      if Time.now() < @train.departure_date && seats>0 && @ticket.save
         @train.seats_left = @train.seats_left - 1
         @train.save
         format.html{ redirect_to tickets_url(@ticket), notice: "Ticket booked successfully. Confirmation number: #{@ticket.confirmation_number}" }
@@ -81,6 +81,8 @@ class TicketsController < ApplicationController
     @train = Train.find_by(id: params[:ticket]["train_id"])
     confirmation_number = generate_confirmation_number
     @ticket1.confirmation_number = confirmation_number
+
+
     @ticket2.confirmation_number = confirmation_number
 
     
@@ -88,7 +90,8 @@ class TicketsController < ApplicationController
     @ticket2.passenger_id = params[:ticket]["passenger_id"]
     @ticket1.train_id = @train.id
     @ticket2.train_id = @train.id
-    
+    @ticket1.username = Passenger.find_by(id: params[:ticket]["passenger_id"]).name
+    @ticket2.username = Passenger.find_by(id: params[:ticket]["passenger_id"]).name
 
     seats = @train.seats_left-1
 
@@ -140,7 +143,7 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
      def ticket_params
-       params.require(:ticket).permit(:passenger_id,:credit_number,:ticket_price,:address,:phone_number)
+       params.require(:ticket).permit(:passenger_id,:credit_number,:ticket_price,:address,:phone_number,:train_id)
      end
 
     #Generate the confirmation number using SecureRandom

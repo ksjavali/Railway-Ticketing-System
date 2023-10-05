@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_09_29_012210) do
+ActiveRecord::Schema.define(version: 2023_10_04_213528) do
 
   create_table "admins", force: :cascade do |t|
     t.string "name"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2023_09_29_012210) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "passenger_id", null: false
     t.integer "train_id", null: false
+    t.string "username"
     t.index ["passenger_id"], name: "index_tickets_on_passenger_id"
     t.index ["train_id"], name: "index_tickets_on_train_id"
   end

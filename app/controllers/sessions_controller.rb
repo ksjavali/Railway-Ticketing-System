@@ -1,7 +1,11 @@
 require 'bcrypt'
 class SessionsController < ApplicationController
   skip_before_action :authorized, only: [:new, :create]
-  def new   
+  def new
+    if logged_in?
+      redirect_to root_url
+    end
+
   end
   def create
       passenger = Passenger.find_by_email(params[:email])

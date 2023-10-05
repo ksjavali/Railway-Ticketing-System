@@ -24,6 +24,10 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @review.train_id = params[:train_id]
+    @train = Train.find_by(id: params[:train_id])
+    if !admin_user and Date.today < @train.departure_date 
+      redirect_to tickets_url, notice:"Not yet travelled"
+    end
   end
 
   # GET /reviews/1/edit
