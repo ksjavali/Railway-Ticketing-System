@@ -53,7 +53,7 @@ class TicketsController < ApplicationController
     if !admin_user
       @ticket.username = Passenger.find_by(id: current_passenger.id).name
     else
-      @ticket.username = Passenger.find_by(id: admin_user.id).name
+      @ticket.username = Passenger.find_by(id: params[:ticket]["passenger_id"]).name
     end
     if current_passenger
       @ticket.passenger_id = current_passenger.id
@@ -72,7 +72,7 @@ class TicketsController < ApplicationController
         format.html{ redirect_to tickets_url(@ticket), notice: "Ticket booked successfully. Confirmation number: #{@ticket.confirmation_number}" }
         format.json { render :show, status: :created, location: @ticket }
       else
-        format.html { redirect_to trains_path, notice: "No seats left"}
+        format.html { redirect_to trains_path, notice: "Can't book this train"}
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
     end
