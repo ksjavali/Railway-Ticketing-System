@@ -6,10 +6,6 @@ Please send an email to sshastr4@ncsu.edu if application is not running on VCL.
 The application is deployed on this link:<br>  http://152.7.177.10:8080/
 
 
-## Admin Credentials:
-* Email: admin@gmail.com
-* Password: admin
-
 ## Ruby version:
 * 3.0.2
 
@@ -46,6 +42,40 @@ rails server
 ## Database structure:
 
 <img width="925" alt="Screenshot 2023-09-30 at 7 07 47 PM" src="https://media.github.ncsu.edu/user/26587/files/bf361145-a1fb-4cb7-942f-803e7bbf4d49">
+
+## URL to Login as Admin:
+http://152.7.177.10:8080/admin_login
+Enter the email and password
+<img width="696" alt="Screenshot 2023-10-06 at 12 02 34 AM" src="https://media.github.ncsu.edu/user/26587/files/f507833b-4c75-44a4-898a-db0856edf271">
+
+## Admin Credentials:
+* Email: admin@gmail.com
+* Password: admin
+
+## To view all Trains:
+http://152.7.177.10:8080/trains
+
+<img width="639" alt="Screenshot 2023-10-06 at 12 05 04 AM" src="https://media.github.ncsu.edu/user/26587/files/4744e082-d79c-4c9a-9040-94ffc7c545e4">
+
+## To filter trains:
+<img width="626" alt="Screenshot 2023-10-06 at 12 05 45 AM" src="https://media.github.ncsu.edu/user/26587/files/5f6feb92-1682-4af3-9605-dac540eca187">
+
+## To book a train:
+http://152.7.177.10:8080/tickets/new?train_id=1 <br><br>
+
+<img width="439" alt="Screenshot 2023-10-06 at 12 07 22 AM" src="https://media.github.ncsu.edu/user/26587/files/1ca0c052-6e45-4f20-a629-6a3a94f40d70">
+
+## To show review:
+http://152.7.177.10:8080/reviews?train_id=1
+
+
+## To search for passengers on a particular train (Admin only):
+http://152.7.177.10:8080/passenger_search
+
+
+### All labels such as Edit, Delete, New and Show are used to edit, delete, create and display respectively.
+
+
 
 ## Components:
 ### Admin
