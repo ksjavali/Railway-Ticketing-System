@@ -43,9 +43,9 @@
         <td><%= Train.find_by(id: ticket.train_id).departure_station %></td>
         <td><%= Train.find_by(id: ticket.train_id).termination_station %></td>
         <td><%= Train.find_by(id: ticket.train_id).departure_date %></td>
-        <td><%= Train.find_by(id: ticket.train_id).departure_time %></td>
+        <td><%= Train.find_by(id: ticket.train_id).departure_time.strftime("%I:%M %p") %></td>
         <td><%= Train.find_by(id: ticket.train_id).arrival_date %></td>
-        <td><%= Train.find_by(id: ticket.train_id).arrival_time %></td>
+        <td><%= Train.find_by(id: ticket.train_id).arrival_time.strftime("%I:%M %p") %></td>
         <td><%= ticket.username %></td>
         <td><%= ticket.confirmation_number %></td>
         <td><%= link_to 'Show', ticket %></td>

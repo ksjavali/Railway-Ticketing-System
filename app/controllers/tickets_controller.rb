@@ -50,8 +50,11 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new
     @train = Train.find_by(id: params[:ticket]["train_id"])
     @ticket.confirmation_number = generate_confirmation_number
-    @ticket.username = Passenger.find_by(id: current_passenger.id).name
-
+    if !admin_user
+      @ticket.username = Passenger.find_by(id: current_passenger.id).name
+    else
+      @ticket.username = Passenger.find_by(id: admin_user.id).name
+    end
     if current_passenger
       @ticket.passenger_id = current_passenger.id
       @ticket.train_id = @train.id
