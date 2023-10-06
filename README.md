@@ -138,8 +138,13 @@ List reviews written for a specific train.<br>
 * Review Management:<br>Passengers can write and edit their own train reviews.<br>Admin can create, view, edit, and delete reviews.<br>
 * Review Listing:<br>List reviews written by a specific user.<br>List reviews written for a specific train.<br>
 
+### RSpec Testing:
+Thoroughly tested the Admin model and Admin controller.
+
 ### Extra credit:
-Implement a search function for the admin to use. The input is the train number; the search result is a list of users who booked this train: Done
+Implement a search function for the admin to use. The input is the train number; the search result is a list of users who booked this train: Done<br>
+Implement a function to allow a user to buy a ticket for another user (the ticket can be viewed by both the user who pays for the ticket and the user who receives the ticket):Done
+
 
 ### Contibutors:
 1. [Akshat Saxena](https://github.ncsu.edu/asaxen24)
