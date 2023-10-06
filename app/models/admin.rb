@@ -1,5 +1,6 @@
 class Admin < ApplicationRecord
     has_secure_password
+    validates :name, presence: true
     validates :email, presence: true, uniqueness: true
     validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "must be a valid email address" }
     validates :password, presence: true, on: [new, create]
