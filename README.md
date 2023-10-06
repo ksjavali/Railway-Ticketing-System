@@ -52,6 +52,10 @@ Enter the email and password
 * Email: admin@gmail.com
 * Password: admin
 
+## User Credentials:
+* Email: testuser@gmail.com
+* Password: testuser
+
 ## To view all Trains:
 http://152.7.177.10:8080/trains
 
