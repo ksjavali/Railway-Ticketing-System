@@ -13,6 +13,11 @@ RSpec.describe Admin, type: :model do
       expect(admin).not_to be_valid
     end
 
+    it "is not valid without username" do
+        admin.username = nil
+        expect(admin).not_to be_valid
+      end
+
     it "is not valid with an invalid email format" do
       admin.email = "invalid_email"
       expect(admin).not_to be_valid

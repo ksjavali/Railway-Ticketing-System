@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe AdminsController, type: :controller do
 
     let(:valid_attributes) {
-        { name: 'Admin_test', email: 'testadmin@gmail.com', password: 'admin_password',phone_number:1111111111,address:'admin_address',credit_number:1234123412341234 }
+        { name: 'Admin_test', username: 'admin', email: 'testadmin@gmail.com', password: 'admin_password',phone_number:1111111111,address:'admin_address',credit_number:1234123412341234 }
     }
     
     let(:invalid_attributes) {
-        { name: 'Admin_test',email: 'admin_email', password: 'admin_password' ,phone_number:'111111' , address:'admin_address',credit_number:'1234'}
+        { name: 'Admin_test',username: '', email: 'admin_email', password: 'admin_password' ,phone_number:'111111' , address:'admin_address',credit_number:'1234'}
     }
 
     describe "GET #index" do
