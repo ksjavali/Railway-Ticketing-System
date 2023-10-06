@@ -1,5 +1,4 @@
 
-
 <%= form_with(model: ticket) do |form| %>
   <% if ticket.errors.any? %>
     <div id="error_explanation">
@@ -52,8 +51,8 @@
   <% if admin_user %>
     <div class="field">
       <%= form.label :passenger_id %>
-      <%= form.text_field :passenger_id %>
-    </div>
+      <%= form.select :passenger_id, @passengers.map { |passenger| [passenger.name, passenger.id] }, { include_blank: "Select a passenger" } %>
+  </div>
 
   <% end %>
 

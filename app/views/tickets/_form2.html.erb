@@ -1,0 +1,68 @@
+
+<%= form_with(model: ticket, url: ticket_book_create_path(@ticket)) do |form| %>
+    <% if ticket.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
+  
+        <ul>
+          <% ticket.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <p>You are purchasing one ticket for the train: <%= @train.train_number %></p>
+    
+    <div class="field">
+      <%= form.label :credit_number, "Credit Card Number" %>
+      <% if admin_user %>
+        <%= form.text_field :credit_number, :id => 'credit_number',value: admin_user.credit_number %>
+      <% else %>
+        <%= form.text_field :credit_number, :id => 'credit_number',value: current_passenger.credit_number %>
+      <% end %>
+      
+    </div>
+  
+    <div class="field">
+      <%= form.label :ticket_price %>
+      <%= form.text_field :ticket_price, :id => 'ticket_price', :readonly => true, value: @train.ticket_price %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :address, "Address" %>
+      <% if admin_user %>
+        <%= form.text_field :address, :id => 'address', value: admin_user.address  %>
+      <% else %>
+        <%= form.text_field :address, :id => 'address', value: current_passenger.address  %>
+      <% end %>
+      
+    </div>
+  
+    <div class="field">
+      <%= form.label :phone_number, "Phone Number" %>
+      <% if admin_user %>
+        <%= form.text_field :phone_number, :id => 'phone_number', value: admin_user.phone_number %>
+      <% else %>
+        <%= form.text_field :phone_number, :id => 'phone_number', value: current_passenger.phone_number %>
+      <% end %>
+    </div>
+   
+  
+
+    <div class="field">
+        <%= form.label :passenger_id %>
+        <%= form.select :passenger_id, @passengers.map { |passenger| [passenger.name, passenger.id] }, { include_blank: "Select a passenger" } %>
+    </div>
+  
+
+  
+    <div class="field">
+      <%= form.hidden_field :train_id, value: @train.id %>
+    </div>
+  
+  
+    <div class="actions">
+      <%= form.submit "Book Ticket"%>
+    </div>
+  <% end %>
+  

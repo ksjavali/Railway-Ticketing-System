@@ -7,7 +7,7 @@ class CreatePassengers < ActiveRecord::Migration[6.1]
       t.string :phone_number
       t.string :address
       t.string :credit_number
-
+      t.boolean :is_admin, default:false
       t.timestamps
     end
   end

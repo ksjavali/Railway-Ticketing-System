@@ -24,6 +24,10 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @review.train_id = params[:train_id]
+    @train = Train.find_by(id: params[:train_id])
+    if !admin_user and Date.today < @train.departure_date 
+      redirect_to tickets_url, notice:"Not yet travelled"
+    end
   end
 
   # GET /reviews/1/edit
@@ -42,11 +46,11 @@ class ReviewsController < ApplicationController
         @review.train_id = @train.id
     end
     respond_to do |format|
-      @train.average_rating = @train.average_rating + @review.rating
+      @train.average_rating = (@train.average_rating + @review.rating)/(Review.where(train_id: @train.id).count+1).round(2)
       # puts "#{Review.where(train_id: @train.id).count} hello hello"
       # puts "#{@train.average_rating} hello hello"
-      @train.average_rating = @train.average_rating/(Review.where(train_id: @train.id).count+1)
-      @train.average_rating = @train.average_rating.round(2)
+      #@train.average_rating = @train.average_rating/(Review.where(train_id: @train.id).count+1)
+      #@train.average_rating = @train.average_rating.round(2)
 
       if @review.save & @train.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully created." }
@@ -60,8 +64,13 @@ class ReviewsController < ApplicationController
 
   # PATCH/PUT /reviews/1 or /reviews/1.json
   def update
+    @train = Train.find_by(id: params[:review]["train_id"])
+    @count = Review.where(train_id: @train.id).count
     respond_to do |format|
       if @review.update(review_params)
+        @total_rating = Review.sum(:rating)
+        @train.average_rating = (@total_rating/@count).round(2)
+        @train.save
         format.html { redirect_to review_url(@review), notice: "Review was successfully updated." }
         format.json { render :show, status: :ok, location: @review }
       else

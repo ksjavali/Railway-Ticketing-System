@@ -42,7 +42,9 @@ class TrainsController < ApplicationController
     @train = Train.new(train_params)
     @train.average_rating=0
     respond_to do |format|
-      if @train.save
+      if @train.seats_left > @train.train_capacity || @train.departure_time < @train.arrival_time
+        format.html { redirect_to trains_url, notice: "Check Train parameters" }
+      elsif @train.seats_left < @train.train_capacity && @train.save
         format.html { redirect_to train_url(@train), notice: "Train was successfully created." }
         format.json { render :show, status: :created, location: @train }
       else

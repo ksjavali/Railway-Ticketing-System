@@ -37,7 +37,7 @@ class ReviewsTest < ApplicationSystemTestCase
   test "destroying a Review" do
     visit reviews_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
     assert_text "Review was successfully destroyed"

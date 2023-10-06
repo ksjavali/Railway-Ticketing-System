@@ -45,7 +45,7 @@ class PassengersTest < ApplicationSystemTestCase
   test "destroying a Passenger" do
     visit passengers_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
     assert_text "Passenger was successfully destroyed"

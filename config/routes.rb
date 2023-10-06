@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   resources :admins
   resources :transactions
   root 'home#index'
+  
+  get 'passenger_search', to: 'passengers#passenger_search', as: 'passenger_search'
+  get 'ticket_book', to: 'tickets#ticket_book', as: 'ticket_book'
+  post 'ticket_book_create', to: 'tickets#ticket_book_create', as:'ticket_book_create'
   resources :sessions, only: [:new, :create, :destroy]
   get 'signup', to: 'passengers#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
